@@ -14,9 +14,5 @@
 7. sync repo between source and personal (pull from source,push to personal)
 ```
 
- - Using Branches and Pull Requests with the Clubhouse VCS Integrations  \
-    referenced link : [https://help.clubhouse.io/hc/en-us/articles/207540323-Using-Branches-and-Pull-Requests-with-the-Clubhouse-VCS-Integrations][0]
-   
-----------
-<!-- plz keeping it at the bottom of this doc -->
-[0]:(https://help.clubhouse.io/hc/en-us/articles/207540323-Using-Branches-and-Pull-Requests-with-the-Clubhouse-VCS-Integrations)
+ - Using Branches and Pull Requests with the Clubhouse VCS Integrations
+   - referenced link : [https://help.clubhouse.io/hc/en-us/articles/207540323-Using-Branches-and-Pull-Requests-with-the-Clubhouse-VCS-Integrations](https://help.clubhouse.io/hc/en-us/articles/207540323-Using-Branches-and-Pull-Requests-with-the-Clubhouse-VCS-Integrations)
