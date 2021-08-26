@@ -35,3 +35,6 @@ jobs:
           tree
           cd sdk
           cat a
+      - name: Where am I?
+        run: |
+          pwd
