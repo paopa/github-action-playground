@@ -1,0 +1,19 @@
+name: Release (Testing)
+on:
+  release:
+    type: [ created ]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Located At
+        run: |
+          echo "::dir is $(pwd)::"
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: Testing Python
+        run: |
+          python --version
