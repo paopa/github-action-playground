@@ -2,6 +2,8 @@ name: Release (Testing)
 on:
   release:
     type: [ created ]
+  push:
+    branches: [ main ]
 
 jobs:
   release:
@@ -15,5 +17,13 @@ jobs:
         with:
           python-version: 3.7
       - name: Testing Python
+        run: python --version
+      - name: Compress File
         run: |
-          python --version
+          tar -czf aa.tar.gz ./a
+          ls -al
+      - name: Decompress File
+        run: |
+          mkdir ./sdk
+          tar -xzf aa.tar.gz -C sdk
+          tree
