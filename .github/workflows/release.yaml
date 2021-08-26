@@ -20,10 +20,12 @@ jobs:
         run: python --version
       - name: Compress File
         run: |
-          tar -czf aa.tar.gz ./a
+          ls -al
+          tar -czf aa.tar.gz a
           ls -al
       - name: Decompress File
         run: |
+          ls -al
           mkdir ./sdk
           tar -xzf aa.tar.gz -C sdk
           tree
