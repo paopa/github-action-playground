@@ -8,6 +8,7 @@ jobs:
   tips:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - run: |
           cd ./d1
           pwd
