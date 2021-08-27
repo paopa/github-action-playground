@@ -1,0 +1,14 @@
+name: Tips (Test)
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  tips:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          cd ./d1
+          pwd
+      - run: pwd
