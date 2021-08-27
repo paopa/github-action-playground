@@ -5,16 +5,14 @@ on:
 jobs:
   release-test:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./d1
     steps:
       - uses: actions/checkout@v2
       - name: Compress File
-        working-directory: ./
         run: |
           tar -cvf aa.tar.gz a
           tar -cvf dd.tar.gz ./d1
+          mkdir d2
+          mv ./d1.tar.gz ./d2
       - name: Upload File
         uses: jasonetco/upload-to-release@v0.1.1
         with:
@@ -24,6 +22,6 @@ jobs:
       - name: Upload File With Dir
         uses: jasonetco/upload-to-release@v0.1.1
         with:
-          args: d1.tar.gz applicaiton/gzip
+          args: ./d2/d1.tar.gz applicaiton/gzip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
