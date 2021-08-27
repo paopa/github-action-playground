@@ -13,3 +13,14 @@ jobs:
           cd ./d1
           pwd
       - run: pwd
+      - run: pwd
+        working-directory: ./d2
+      - name: set variable
+        run: |
+          echo "::set-output name=ID::123"
+        id: set_var
+      - name: get variable
+        run: |
+          echo $ID
+        env:
+          ID: ${{steps.set_var.outputs.ID}}
