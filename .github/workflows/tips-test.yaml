@@ -13,8 +13,8 @@ jobs:
           cd ./d1
           pwd
       - run: pwd
-      - run: pwd
-        working-directory: ./d2
+      - working-directory: ./d2
+        run: pwd
       - name: set variable
         run: |
           echo "::set-output name=ID::123"
