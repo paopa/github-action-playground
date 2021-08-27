@@ -1,0 +1,39 @@
+name: Push (Testing)
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  push-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Located At
+        run: |
+          echo "::dir is $(pwd)::"
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: Testing Python
+        run: python --version
+      - name: Compress File
+        run: |
+          tree
+          tar -czf aa.tar.gz a
+          tree
+      - name: Decompress File
+        run: |
+          tree
+          mkdir ./sdk
+          tar -xzf aa.tar.gz -C sdk
+          tree
+      - name: Echo File
+        run: |
+          tree
+          cd sdk
+          cat a
+          pwd
+      - name: Where am I?
+        run: |
+          pwd
