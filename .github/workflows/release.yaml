@@ -13,6 +13,6 @@ jobs:
       - name: Upload File
         uses: jasonetco/upload-to-release@v0.1.1
         with:
-          args: aa.tar.gz
+          args: aa.tar.gz application/gzip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
