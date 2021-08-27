@@ -1,7 +1,7 @@
 name: Push (Testing)
 on:
   push:
-    branches: [ main ]
+    branches: [ main-push-action ]
 
 jobs:
   push-test:

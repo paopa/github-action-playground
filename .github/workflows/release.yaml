@@ -7,9 +7,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Compress File
+        run: |
+          tar -cvf aa.tar.gz a
       - name: Upload File
         uses: jasonetco/upload-to-release@v0.1.1
         with:
-          args: a
+          args: aa.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
