@@ -2,7 +2,7 @@ name: Tips (Test)
 on:
   push:
     branches:
-      - main
+      - main-push-action
 
 jobs:
   tips:
