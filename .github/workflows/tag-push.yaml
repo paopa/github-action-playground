@@ -1,0 +1,14 @@
+name: Tag Push
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*"
+
+jobs:
+  release-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo hello
