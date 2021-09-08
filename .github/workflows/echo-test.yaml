@@ -2,8 +2,7 @@ name: Echo TEST
 on:
   push:
     branches:
-      - main
-      - "**"
+      - main-push-action
 jobs:
   echo-test:
     runs-on: ubuntu-latest
