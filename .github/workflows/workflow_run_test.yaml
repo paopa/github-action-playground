@@ -1,8 +1,6 @@
 on:
   workflow_run:
-    workflows:
-      - "Echo TEST"
-      - "Tag Push"
+    workflows: [ "Echo TEST","Tag Push" ]
     types:
       - completed
 jobs:
