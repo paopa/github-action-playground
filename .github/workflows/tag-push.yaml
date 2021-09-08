@@ -3,7 +3,7 @@ name: Tag Push
 on:
   push:
     tags:
-      - "v*"
+      - "v*-action"
 
 jobs:
   release-tag:
