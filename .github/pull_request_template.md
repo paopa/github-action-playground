@@ -6,21 +6,18 @@
 - [ ] Breaking change (fix or feature that would cause the existing functionality to change)
 - [ ] This change has database scripts
 
-[comment]: <> (describe this pr)
+[comment]: <> (describe this PR below this comment)
 
 ### Changes
 
-- 
+-
 
-## Link to the related issue(s)
+## How to test [if available]
 
-- []()
+## Link to the related issue(s) [if available]
 
-## Link to the related pull request(s)
+## Link to the related pull request(s) [if available]
 
-- []()
-
-## Screenshots
-[comment]: <> (prefer animated gif)
+## Screenshots [if available]
 
 ## Checklist
