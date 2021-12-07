@@ -2,7 +2,7 @@ name: Entry
 on:
   push:
     branches:
-      - main
+      - test-workflow-run-property
   pull_request:
     branches:
       - '**'
