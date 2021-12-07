@@ -1,0 +1,16 @@
+name: CI 1
+on:
+  workflow_run:
+    workflows: ["Entry"]
+    types: ["completed"]
+jobs:
+  ci-1-job:
+    runs-on: ubuntu-latest
+    outputs:
+      enable: ${{ steps.ok-to-test.outputs.enable }}
+    steps:
+      - name: echo to file
+        run: |
+          echo 123 > test.txt
+          ls
+          cat test.txt
