@@ -5,6 +5,7 @@ on:
     types: ["completed"]
 jobs:
   ci-1-job:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: echo to file
