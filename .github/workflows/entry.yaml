@@ -9,11 +9,8 @@ on:
 jobs:
   ok-to-test:
     runs-on: ubuntu-latest
-    outputs:
-      enable: ${{ steps.ok-to-test.outputs.enable }}
     steps:
       - name: echo to file
         run: |
-          echo 123 > test.txt
-          ls
-          cat test.txt
+          echo test failed
+          abcdddddddd
