@@ -12,5 +12,4 @@ jobs:
     steps:
       - name: echo to file
         run: |
-          echo test failed
-          abcdddddddd
+          echo test success
