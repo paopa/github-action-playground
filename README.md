@@ -1,4 +1,4 @@
-# github-test
+# github-action-test
 
 ## Articles
 
