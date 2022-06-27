@@ -29,4 +29,4 @@ jobs:
           PULL_REQUEST_TITLE: |
             [SYNC] ${{ github.event.pull_request.title }}
           PULL_REQUEST_BODY: | 
-            sync-branches: New code has just landed in #${{ github.event.pull_request.number }} so let's bring {TO_BRANCH} up to speed!
+            sync-branches: New code has just landed in #${{ github.event.pull_request.number }} so let's bring ${{ env.MAIN_BRANCH }} up to speed!
