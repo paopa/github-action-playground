@@ -1,0 +1,32 @@
+name: Sync hotfix to develop
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - 'release/*'
+
+env:
+  MAIN_BRANCH: 'main'
+
+jobs:
+  auto-sync:
+    if: startsWith(github.event.pull_request.head.ref, 'hotfix') && github.event.pull_request.merged
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Opening pull request
+        id: pull_request
+        uses: tretuna/sync-branches@1.4.0
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FROM_BRANCH: ${{ github.event.pull_request.head.ref }}
+          TO_BRANCH: ${{ env.MAIN_BRANCH }}
+          PULL_REQUEST_TITLE: |
+            [SYNC] ${{ github.event.pull_request.title }}
+          PULL_REQUEST_BODY: | 
+            sync-branches: New code has just landed in #${{ github.event.pull_request.number }} so let's bring {TO_BRANCH} up to speed!
