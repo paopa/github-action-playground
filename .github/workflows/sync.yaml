@@ -30,6 +30,9 @@ jobs:
             ${{ github.event.pull_request.title }}
           PULL_REQUEST_BODY: |
             sync-branches: New code has just landed in #${{ github.event.pull_request.number }} so let's bring ${{ env.MAIN_BRANCH }} up to speed!
+      - run: |
+          echo pr url: ${{ steps.pull_request.outputs.PULL_REQUEST_URL }}
+          echo pr number: ${{ steps.pull_request.outputs.PULL_REQUEST_NUMBER }}
       - name: Add label
         uses: actions-ecosystem/action-add-labels@v1
         with:
