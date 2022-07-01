@@ -30,6 +30,8 @@ jobs:
             ${{ github.event.pull_request.title }}
           PULL_REQUEST_BODY: |
             sync-branches: New code has just landed in #${{ github.event.pull_request.number }} so let's bring ${{ env.MAIN_BRANCH }} up to speed!
-      - uses: actions-ecosystem/action-add-labels@v1
+      - name: Add label
+        uses: actions-ecosystem/action-add-labels@v1
         with:
           labels: hotfix-sync
+          number: ${{ steps.pull_request.outputs.PULL_REQUEST_NUMBER }}
