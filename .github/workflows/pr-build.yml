@@ -1,0 +1,68 @@
+name: PR Build
+
+on:
+  issue_comment:
+    types: [ created ]
+
+jobs:
+  comment-check:
+    name: comment-check
+    runs-on: ubuntu-latest
+    outputs:
+      triggered: ${{ steps.check.outputs.triggered }}
+      # comment_body is blank
+      # https://github.com/Khan/pull-request-comment-trigger/issues/6
+      comment_body: ${{ github.event.comment.body }}
+    steps:
+      - uses: khan/pull-request-comment-trigger@master
+        id: check
+        with:
+          trigger: '/build'
+          reaction: rocket
+        env:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+  pr-build:
+    name: pr-build
+    needs: [ comment-check ]
+    if: needs.comment-check.outputs.triggered == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get PR of this comment
+        uses: actions/github-script@v3
+        id: get-pr
+        with:
+          script: |
+            const request = {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            }
+            core.info(`Getting PR #${request.pull_number} from ${request.owner}/${request.repo}`)
+            try {
+              const result = await github.pulls.get(request)
+              core.info(`Using commit sha ${result.data.head.sha}`)
+              return result.data
+            } catch (err) {
+              core.setFailed(`Request failed with error ${err}`)
+            }
+      - name: Get image tag
+        uses: actions/github-script@v3
+        id: get-image-tag
+        with:
+          script: |
+            const commitHash = `${{ fromJSON(steps.get-pr.outputs.result).head.sha }}`
+            const commentBody = `${{ needs.comment-check.outputs.comment_body }}`
+            // in cannerflow deployer, we use k8s migration job to do cannerflow image migration,
+            // and migration job name format is v{imageTagName}-cannerflow-sql-engine-db-migration
+            // Max len in job name is 63, after deducting the length that has been used, the length we can use is 27
+            const maxImageLen = 27
+            try {
+              // validate name
+              // https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set
+              const customizedImageTag = commentBody.split('/build ')[1].trim().match(/^(?![._-])[a-zA-Z0-9._-]+(?<![._-])$/)[0]
+              core.setOutput("imageTag", customizedImageTag.substring(0, maxImageLen))
+            }
+            catch(err) {
+              core.warning(`Error ${err}, fallback to take part of commit hash ${commitHash} as image tag`)
+              core.setOutput("imageTag", commitHash.substring(0, maxImageLen))
+            }
