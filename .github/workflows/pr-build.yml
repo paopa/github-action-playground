@@ -63,6 +63,6 @@ jobs:
               core.setOutput("imageTag", customizedImageTag.substring(0, maxImageLen))
             }
             catch(err) {
-              core.warning(`Error ${err}, fallback to take part of commit hash ${commitHash} as image tag`)
+              core.warning(`Error ${err}, use commit hash ${commitHash} as image tag instead`)
               core.setOutput("imageTag", commitHash.substring(0, maxImageLen))
             }
