@@ -9,10 +9,10 @@ jobs:
       - uses: actions/checkout@v2
       - name: Compress File
         run: |
-          tar -cvf aa.tar.gz a
+          tar -cvf aa.tar.gz test-file
           tar -cvf dd.tar.gz ./d1
-          mkdir d2
-          mv ./dd.tar.gz ./d2
+          mkdir d2-ci
+          mv ./dd.tar.gz ./d2-ci
       - name: Upload File
         uses: jasonetco/upload-to-release@v0.1.1
         with:
@@ -22,6 +22,16 @@ jobs:
       - name: Upload File With Dir
         uses: jasonetco/upload-to-release@v0.1.1
         with:
-          args: ./d2/dd.tar.gz applicaiton/gzip
+          args: ./d2-ci/dd.tar.gz applicaiton/gzip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Rename File
+        run: |
+          touch hello.txt
+          mv hello{,_$GITHUB_REF_NAME}.txt
+      - name: Upload File
+        uses: jasonetco/upload-to-release@v0.1.1
+        with:
+          args: ./hello_$GITHUB_REF_NAME.txt text/plain
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
