@@ -25,3 +25,13 @@ jobs:
           args: ./d2/dd.tar.gz applicaiton/gzip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Rename File
+        run: |
+          touch hello.txt
+          mv hello{,_$GITHUB_REF_NAME}.txt
+      - name: Upload File
+        uses: jasonetco/upload-to-release@v0.1.1
+        with:
+          args: ./hello_$GITHUB_REF_NAME.txt text/plain
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
