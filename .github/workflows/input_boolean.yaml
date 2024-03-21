@@ -1,0 +1,33 @@
+name: Input Boolean
+
+on:
+  workflow_dispatch:
+    inputs:
+      docker_image_tag_name:
+        description: Docker image tag name (Optional)
+        type: string
+      is_latest:
+        description: Is latest tag (Optional)
+        type: boolean
+        required: false
+        default: false
+
+jobs:
+  build-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepare tag name
+        id: prepare_tag
+        run: |
+          if [ -n "${{ github.event.inputs.docker_image_tag_name }}" ]; then
+            tag_name=${{ github.event.inputs.docker_image_tag_name }}
+          else
+            tag_name=$(echo ${{ github.ref_name }} | sed 's/[^a-zA-Z0-9]/-/g')-$(git log -1 --pretty=%h)
+          fi
+          echo "TAG_NAME=$tag_name" >> $GITHUB_OUTPUT
+      - name: Echo tag name and check latest
+        run: |
+          echo "
+          --tag $TAG_NAME
+          ${{--tag latest [github.event.inputs.is_latest == 'true' ]}}
+          "
