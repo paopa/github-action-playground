@@ -13,7 +13,7 @@ on:
         default: false
 
 jobs:
-  build-image:
+  input-boolean-demo:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -28,9 +28,5 @@ jobs:
           echo "TAG_NAME=$tag_name" >> $GITHUB_OUTPUT
       - name: Echo tag name and check latest
         run: |
-          echo "--tag $TAG_NAME"
-      - name: Send greeting
-        run: |
-          echo "${{ github.event.inputs.message }} 
-          ${{ fromJSON('["", "🥳"]')[github.event.inputs.is_latest == 'true'] }} $
-          {{ github.event.inputs.name }}"
+          cmd = "echo $TAG_NAME"
+          eval "$cmd"
