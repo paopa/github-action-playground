@@ -24,7 +24,11 @@ jobs:
           # else
           #   tag_name=$(echo ${{ github.ref_name }} | sed 's/[^a-zA-Z0-9]/-/g')-$(git log -1 --pretty=%h)
           # fi
-          tag_name=${{ github.event.inputs.docker_image_tag_name:-$(echo ${{ github.ref_name }} | sed 's/[^a-zA-Z0-9]/-/g')-$(git log -1 --pretty=%h) }}
+          tag_name=${{ 
+          github.event.inputs.docker_image_tag_name != '' && github.event.inputs.docker_image_tag_name != 'null' 
+          && github.event.inputs.docker_image_tag_name 
+          || $(echo ${{ github.ref_name }} | sed 's/[^a-zA-Z0-9]/-/g')-$(git log -1 --pretty=%h) 
+          }}
           echo "TAG_NAME=$tag_name" >> $GITHUB_OUTPUT
       - name: Echo tag name and check latest
         run: |
