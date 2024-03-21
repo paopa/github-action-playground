@@ -29,4 +29,4 @@ jobs:
       - name: Echo tag name and check latest
         run: |
           cmd = "echo $TAG_NAME"
-          eval "$cmd"
+          $(cmd)
