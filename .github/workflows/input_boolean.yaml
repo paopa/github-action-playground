@@ -16,20 +16,21 @@ jobs:
   build-image:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Prepare tag name
-        id: prepare_tag
         run: |
-          # if [ -n "${{ github.event.inputs.docker_image_tag_name }}" ]; then
-          #   tag_name=${{ github.event.inputs.docker_image_tag_name }}
-          # else
-          #   tag_name=$(echo ${{ github.ref_name }} | sed 's/[^a-zA-Z0-9]/-/g')-$(git log -1 --pretty=%h)
-          # fi
-          tag_name=${{ 
-          github.event.inputs.docker_image_tag_name != '' && github.event.inputs.docker_image_tag_name != 'null' 
-          && github.event.inputs.docker_image_tag_name 
-          || ${{ echo ${{ github.ref_name }} | sed 's/[^a-zA-Z0-9]/-/g' }-$(git log -1 --pretty=%h }}
-          }}
+          if [ -n "${{ github.event.inputs.docker_image_tag_name }}" ]; then
+            tag_name=${{ github.event.inputs.docker_image_tag_name }}
+          else
+            tag_name=$(echo ${{ github.ref_name }} | sed 's/[^a-zA-Z0-9]/-/g')-$(git log -1 --pretty=%h)
+          fi
           echo "TAG_NAME=$tag_name" >> $GITHUB_OUTPUT
       - name: Echo tag name and check latest
         run: |
           echo "--tag $TAG_NAME"
+      - name: Send greeting
+        run: |
+          echo "${{ github.event.inputs.message }} 
+          ${{ fromJSON('["", "🥳"]')[github.event.inputs.is_latest == 'true'] }} $
+          {{ github.event.inputs.name }}"
