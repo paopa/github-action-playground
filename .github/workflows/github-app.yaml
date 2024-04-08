@@ -23,3 +23,6 @@ jobs:
           git config --global user.name "GitHub Actions"
           git remote set-url origin  \
             "https://x-access-token:${{ steps.generate-token.outputs.token }}@github.com/${{ github.repository }}"
+          git add .
+          git commit -m "Add branch protection"
+          git push
