@@ -17,6 +17,7 @@ jobs:
       - name: Create local changes
         run: |
           echo "Hello, World!" > branch-protection.txt
+          echo "Hello, World!" > branch-protection.txt
       - name: Commit changes
         run: |
           git config --global user.email "demo@github.com"
